@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Super Calculator by Ismail</title>
+<title>Calculator Ismail Pro</title>
 <style>
     * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body { 
@@ -14,10 +14,11 @@
     .calculator { 
         background: rgba(255,255,255,0.1); backdrop-filter: blur(20px);
         padding: 25px; border-radius: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        border: 1px solid rgba(255,255,255,0.2);
+        border: 1px solid rgba(255,255,255,0.2); width: 350px;
     }
+    #history { color: rgba(255,255,255,0.6); font-size: 16px; height: 25px; text-align: right; }
     #display { 
-        width: 100%; height: 80px; font-size: 32px; margin-bottom: 20px; 
+        width: 100%; height: 80px; font-size: 32px; margin-bottom: 15px; 
         text-align: right; padding: 10px 15px; border: none; border-radius: 15px;
         background: rgba(0,0,0,0.3); color: white;
     }
@@ -31,57 +32,42 @@
     .operator { background: rgba(255,149,0,0.8); }
     .equal { background: rgba(52,199,89,0.8); grid-column: span 2; }
     .clear { background: rgba(255,59,48,0.8); }
+    .del { background: rgba(255,204,0,0.8); color: black; }
     .sci { background: rgba(88,86,214,0.8); font-size: 16px; }
 </style>
 </head>
 <body>
 <div class="calculator">
+    <div id="history"></div>
     <input type="text" id="display" disabled>
     <div class="buttons">
-        <button class="clear" onclick="clearDisplay()">C</button>
-        <button class="sci" onclick="appendToDisplay('(')">(</button>
-        <button class="sci" onclick="appendToDisplay(')')">)</button>
-        <button class="operator" onclick="appendToDisplay('/')">/</button>
+        <button class="clear" onclick="playSound(); clearDisplay()">C</button>
+        <button class="del" onclick="playSound(); deleteLast()">DEL</button>
+        <button class="sci" onclick="playSound(); appendToDisplay('(')">(</button>
+        <button class="operator" onclick="playSound(); appendToDisplay('/')">/</button>
         
-        <button class="sci" onclick="appendToDisplay('Math.sqrt(')">√</button>
-        <button onclick="appendToDisplay('7')">7</button>
-        <button onclick="appendToDisplay('8')">8</button>
-        <button onclick="appendToDisplay('9')">9</button>
-        <button class="operator" onclick="appendToDisplay('*')">*</button>
+        <button class="sci" onclick="playSound(); appendToDisplay('Math.sqrt(')">√</button>
+        <button onclick="playSound(); appendToDisplay('7')">7</button>
+        <button onclick="playSound(); appendToDisplay('8')">8</button>
+        <button onclick="playSound(); appendToDisplay('9')">9</button>
+        <button class="operator" onclick="playSound(); appendToDisplay('*')">*</button>
         
-        <button class="sci" onclick="appendToDisplay('**')">^</button>
-        <button onclick="appendToDisplay('4')">4</button>
-        <button onclick="appendToDisplay('5')">5</button>
-        <button onclick="appendToDisplay('6')">6</button>
-        <button class="operator" onclick="appendToDisplay('-')">-</button>
+        <button class="sci" onclick="playSound(); appendToDisplay('**')">^</button>
+        <button onclick="playSound(); appendToDisplay('4')">4</button>
+        <button onclick="playSound(); appendToDisplay('5')">5</button>
+        <button onclick="playSound(); appendToDisplay('6')">6</button>
+        <button class="operator" onclick="playSound(); appendToDisplay('-')">-</button>
         
-        <button class="sci" onclick="appendToDisplay('%')">%</button>
-        <button onclick="appendToDisplay('1')">1</button>
-        <button onclick="appendToDisplay('2')">2</button>
-        <button onclick="appendToDisplay('3')">3</button>
-        <button class="operator" onclick="appendToDisplay('+')">+</button>
+        <button class="sci" onclick="playSound(); appendToDisplay('%')">%</button>
+        <button onclick="playSound(); appendToDisplay('1')">1</button>
+        <button onclick="playSound(); appendToDisplay('2')">2</button>
+        <button onclick="playSound(); appendToDisplay('3')">3</button>
+        <button class="operator" onclick="playSound(); appendToDisplay('+')">+</button>
         
-        <button onclick="appendToDisplay('0')">0</button>
-        <button onclick="appendToDisplay('.')">.</button>
-        <button class="equal" onclick="calculate()">=</button>
+        <button onclick="playSound(); appendToDisplay('0')">0</button>
+        <button onclick="playSound(); appendToDisplay('.')">.</button>
+        <button class="equal" onclick="playSound(); calculate()">=</button>
     </div>
 </div>
 
-<script>
-function appendToDisplay(value) {
-    document.getElementById('display').value += value;
-}
-function clearDisplay() {
-    document.getElementById('display').value = '';
-}
-function calculate() {
-    try {
-        let exp = document.getElementById('display').value;
-        document.getElementById('display').value = eval(exp);
-    } catch {
-        document.getElementById('display').value = 'Error';
-    }
-}
-</script>
-</body>
-</html>
+<audio
